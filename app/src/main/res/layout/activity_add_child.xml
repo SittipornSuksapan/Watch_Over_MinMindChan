@@ -19,6 +19,7 @@
             android:layout_height="wrap_content">
             <!--back-->
             <ImageView
+                android:id="@+id/imvBack"
                 android:src="@mipmap/ic_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -34,7 +35,7 @@
 
             <!--save-->
             <ImageView
-
+                android:id="@+id/imvSave"
                 android:layout_alignParentRight="true"
                 android:src="@mipmap/ic_save"
                 android:layout_width="wrap_content"
@@ -58,6 +59,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:layout_margin="10dp"
                 android:id="@+id/imPicture"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
@@ -66,6 +68,7 @@
                 android:src="@drawable/ic_picture" />
 
             <ImageView
+                android:id="@+id/imvCamera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imPicture"
@@ -76,6 +79,7 @@
 
         <!--Right site-->
         <LinearLayout
+            android:padding="10dp"
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -91,6 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/edtCode"
                     android:hint="CODE ID"
                     android:inputType="text"
                     android:layout_width="match_parent"
@@ -108,6 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/edtName"
                     android:hint="NAME"
                     android:inputType="text"
                     android:layout_width="match_parent"
@@ -121,14 +127,31 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:layout_gravity="top"
                     android:src="@mipmap/ic_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <EditText
-                    android:hint="GENDER"
-                    android:inputType="text"
+                <RadioGroup
+                    android:id="@+id/ragGender"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radMale"
+                        android:checked="true"
+                        android:text="Male"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/radFemale"
+                        android:text="Female"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RadioGroup>
+
 
             </LinearLayout>
 
