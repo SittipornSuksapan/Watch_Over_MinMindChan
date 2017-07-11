@@ -30,6 +30,7 @@ public class FirstActivity extends AppCompatActivity {
     private String[] latStrings, lngStrings;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
