@@ -57,7 +57,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyServiceActivity"
+            android:label="@string/title_activity_my_service"></activity>
     </application>
 
 </manifest>
