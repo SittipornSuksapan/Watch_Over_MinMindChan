@@ -52,6 +52,7 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyServiceActivity.this, FirstActivity.class);
+                intent.putExtra("Login", loginString);
                 startActivity(intent);
             }
         });
