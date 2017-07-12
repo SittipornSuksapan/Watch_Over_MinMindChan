@@ -40,8 +40,22 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
         //Save
         saveController();
 
+        //List
+        listController();
+
 
     } //Main Method
+
+    private void listController() {
+        ImageView imageView = (ImageView) findViewById(R.id.imvListView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyServiceActivity.this, FirstActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void saveController() {
         ImageView imageView = (ImageView) findViewById(R.id.imvSave);
