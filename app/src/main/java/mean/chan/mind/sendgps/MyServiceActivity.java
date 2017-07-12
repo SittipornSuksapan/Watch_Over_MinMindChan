@@ -29,6 +29,7 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         addMapFragment();
 
+
         //Back
         backController();
 
