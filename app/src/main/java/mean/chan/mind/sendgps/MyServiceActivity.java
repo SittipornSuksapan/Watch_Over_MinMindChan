@@ -3,6 +3,7 @@ package mean.chan.mind.sendgps;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,6 +13,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MyServiceActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -77,11 +81,36 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        String tag = "13JulyV1";
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        try {
+
+            Log.d(tag, "id_Parent ==> " + loginString[0]);
+
+            GetLocationWhereIdParent getLocationWhereIdParent = new GetLocationWhereIdParent(this);
+            getLocationWhereIdParent.execute(loginString[0]);
+
+            String strJSON = getLocationWhereIdParent.get();
+            Log.d(tag, "JSON ==> " + strJSON);
+
+            JSONArray jsonArray = new JSONArray(getLocationWhereIdParent.get());
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+            String strLat = jsonObject.getString("Lat");
+            String strLng = jsonObject.getString("Lng");
+            Log.d(tag, "Lat ==> " + strLat);
+            Log.d(tag, "Lng ==> " + strLng);
+
+            LatLng latLng = new LatLng(Double.parseDouble(strLat), Double.parseDouble(strLng));
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+
+        } catch (Exception e) {
+            Log.d(tag, "e ==> " + e.toString());
+        }
+
+
     } //omMapReady
 
 
