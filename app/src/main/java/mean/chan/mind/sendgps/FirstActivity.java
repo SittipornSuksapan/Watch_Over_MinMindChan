@@ -153,6 +153,46 @@ public class FirstActivity extends AppCompatActivity {
 //        ConnectedLocalUser connectedLocalUser = new ConnectedLocalUser();
 //        connectedLocalUser.execute();
 
+        try {
+
+            String[] loginStrings = getIntent().getStringArrayExtra("Login");
+
+            GetLocationWhereIdParent getLocationWhereIdParent = new GetLocationWhereIdParent(this);
+            getLocationWhereIdParent.execute(loginStrings[0]);
+
+            String strJSON = getLocationWhereIdParent.get();
+
+            JSONArray jsonArray = new JSONArray(strJSON);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            String strLat = jsonObject.getString("Lat");
+            String strLng = jsonObject.getString("Lng");
+
+            for (int i=0;i<latStrings.length;i++) {
+
+                double douLatPlate = Double.parseDouble(latStrings[i]);
+                double douLngPlate = Double.parseDouble(lngStrings[i]);
+                double douLatUser = Double.parseDouble(strLat);
+                double douLngUser = Double.parseDouble(strLng);
+
+                double currentDistance = distance(douLatPlate,
+                        douLngPlate, douLatUser, douLngUser);
+
+                Log.d("23April", "current Dis ==> " + currentDistance);
+
+                if (currentDistance <0.3) {
+                    myNotification(); //สามารถเปลี่ยนแปลงได้ถ้าอยากให้ออกตอนร้อง
+                }
+
+            }   // for
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
         //Delay
         Handler handler = new Handler();
         int intTime = 5000; // หน่วงเป็นเวลา 5 วินาที
