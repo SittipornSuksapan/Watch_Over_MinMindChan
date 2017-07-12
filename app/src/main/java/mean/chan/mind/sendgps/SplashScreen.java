@@ -14,9 +14,9 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         //Sound Effect
-        MediaPlayer mediaPlayer = MediaPlayer.create(SplashScreen.this,
-                R.raw.intro_tata);
-        mediaPlayer.start();
+//        MediaPlayer mediaPlayer = MediaPlayer.create(SplashScreen.this,
+//                R.raw.intro_tata);
+//        mediaPlayer.start();
 
         //Post Delay & Intent to HomeActivity
         Handler handler = new Handler();
@@ -26,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(new Intent(SplashScreen.this, HomeActivity.class));
                 finish();
             }
-        }, 9000);
+        }, 2000);
 
     }   // Main Method
 

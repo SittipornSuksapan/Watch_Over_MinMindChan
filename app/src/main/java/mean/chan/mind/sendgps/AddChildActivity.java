@@ -32,7 +32,7 @@ public class AddChildActivity extends AppCompatActivity {
         //Initial view
         initialView();
 
-        //RedioGroup Controller
+        //RadioGroup Controller
         radioGroupController();
 
         //Back
@@ -41,8 +41,8 @@ public class AddChildActivity extends AppCompatActivity {
         //Camera Controller
         cameraController();
 
-        //Save controlor
-        saveControlor();
+        //Save controller
+        saveController();
 
 
     }  //Main Method
@@ -63,7 +63,7 @@ public class AddChildActivity extends AppCompatActivity {
 
     }
 
-    private void saveControlor() {
+    private void saveController() {
         ImageView imageView = (ImageView) findViewById(R.id.imvSave);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class AddChildActivity extends AppCompatActivity {
                 if (codeString.equals("") || nameString.equals("")) {
                     //have space
                     MyAlert myAlert = new MyAlert(AddChildActivity.this);
-                    myAlert.myDialog("Have spce","Please fill all");
+                    myAlert.myDialog("Have space","Please fill all");
 
                 } else {
                     //no space

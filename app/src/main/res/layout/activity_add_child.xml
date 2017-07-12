@@ -74,6 +74,12 @@
                 android:layout_below="@+id/imPicture"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/ic_camera" />
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/imvCamera"
+                android:text="Add Picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
 
@@ -96,7 +102,7 @@
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/edtCode"
-                    android:hint="CODE ID"
+                    android:hint="Code ID"
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -114,7 +120,7 @@
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/edtName"
-                    android:hint="NAME"
+                    android:hint="Name"
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
