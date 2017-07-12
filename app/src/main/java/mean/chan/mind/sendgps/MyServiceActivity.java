@@ -105,6 +105,10 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
 
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+            mMap.addMarker(markerOptions);
+
 
         } catch (Exception e) {
             Log.d(tag, "e ==> " + e.toString());
