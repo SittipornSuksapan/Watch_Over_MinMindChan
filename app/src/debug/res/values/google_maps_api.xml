@@ -16,11 +16,11 @@
     string in this file.
 
     Mine ==> AIzaSyD2Sk7XBo5CuuvWT3tqd169wEqpj3vy6R8
-    Master ==>  AIzaSyC3xvPcfuIr63YDAiZ6UuDLj3YlrMDhpi0
+    Master ==>  AIzaSyC8MIJZyc8i5aT4JZ3qTgve5Y-Pe997xaY
     chan ==> AIzaSyCYqOHYwgwy0YcJzAHur29VCDpUfyUdoiI
 
     -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyCYqOHYwgwy0YcJzAHur29VCDpUfyUdoiI
+        AIzaSyC8MIJZyc8i5aT4JZ3qTgve5Y-Pe997xaY
     </string>
 </resources>
