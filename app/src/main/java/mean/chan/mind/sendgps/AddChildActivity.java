@@ -5,18 +5,21 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class AddChildActivity extends AppCompatActivity {
     private EditText codeEditText, nameEditText;
     private ImageView pictureImageView;
     private RadioGroup radioGroup;
-    private String codeString,nameString,genderString;
+    private String codeString, nameString, genderString = "Male";
     private String[] loginStrings;
 
 
@@ -49,6 +52,20 @@ public class AddChildActivity extends AppCompatActivity {
 
     private void radioGroupController() {
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                switch (i) {
+                    case R.id.radMale:
+                        genderString = "Male";
+                        break;
+                    case R.id.radFemale:
+                        genderString = "Female";
+                        break;
+                }
+            }
+        });
+
     }
 
     private void getValueFromIntent() {
@@ -77,7 +94,7 @@ public class AddChildActivity extends AppCompatActivity {
                 if (codeString.equals("") || nameString.equals("")) {
                     //have space
                     MyAlert myAlert = new MyAlert(AddChildActivity.this);
-                    myAlert.myDialog("Have space","Please fill all");
+                    myAlert.myDialog("Have space", "Please fill all");
 
                 } else {
                     //no space
@@ -91,6 +108,31 @@ public class AddChildActivity extends AppCompatActivity {
 
     private void uploadValueToServer() {
 
+
+        String tag = "12JulyV1";
+        Log.d(tag, "Code ==>" + codeString);
+        Log.d(tag, "Name ==>" + nameString);
+        Log.d(tag, "Gender ==>" + genderString);
+        Log.d(tag, "ID_parent ==>" + loginStrings[0]);
+
+        try {
+
+            PostChildToServer postChildToServer = new PostChildToServer(AddChildActivity.this);
+            postChildToServer.execute(codeString,nameString,genderString,loginStrings[0]);
+            String strResult = postChildToServer.get();
+            Log.d(tag, "Result ==>" + strResult);
+
+            if (Boolean.parseBoolean(strResult)) {
+                finish();
+            } else {
+                Toast.makeText(AddChildActivity.this,"Error Please Again",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+
+            Log.d(tag, "e upload ==>" + e.toString());
+        }
 
 
     }

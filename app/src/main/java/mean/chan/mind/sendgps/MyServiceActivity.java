@@ -36,8 +36,6 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
         saveController();
 
 
-
-
     } //Main Method
 
     private void saveController() {
@@ -65,7 +63,8 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private void getValueFromInten() {
-        loginString = getIntent().getStringArrayExtra("login");
+
+        loginString = getIntent().getStringArrayExtra("Login");
     }
 
     private void addMapFragment() {
