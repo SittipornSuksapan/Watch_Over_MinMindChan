@@ -4,4 +4,8 @@
     <string name="title_activity_detail_history">Map</string>
     <string name="title_activity_my_service">Map</string>
     <string name="add_children">Add Children</string>
+    <string name="add_place">Add Place</string>
+    <string name="add_contact">Add Contact</string>
+
+    <string name="contact">Contact</string>
 </resources>

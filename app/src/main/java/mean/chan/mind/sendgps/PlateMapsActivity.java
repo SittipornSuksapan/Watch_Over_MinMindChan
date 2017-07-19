@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +24,9 @@ public class PlateMapsActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_layout);
+
+        //Back
+        backController();
 
         //Receive From Intent
         nameString = getIntent().getStringExtra("Name");
@@ -69,4 +73,15 @@ public class PlateMapsActivity extends FragmentActivity implements OnMapReadyCal
         //icon and name show onMap
 
     } // onMap ทำงานควบคุมแผนที่
+
+    private void backController() {
+        ImageView imageView = (ImageView) findViewById(R.id.imvBack);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
 } // main class

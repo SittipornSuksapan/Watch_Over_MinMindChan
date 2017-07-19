@@ -25,3 +25,4 @@
         android:textColor="@color/text"
         android:textStyle="bold" />
 </LinearLayout>
+

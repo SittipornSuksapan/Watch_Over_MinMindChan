@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 
-public class PlateAdapter extends BaseAdapter{
+public class NumberAdapter extends BaseAdapter{
 
     //Explicit
     private Context context;
@@ -16,7 +16,7 @@ public class PlateAdapter extends BaseAdapter{
 
 
 
-    public PlateAdapter(Context context, String[] titleStrings) {
+    public NumberAdapter(Context context, String[] titleStrings) {
         this.context = context;
         this.titleStrings = titleStrings;
     }//Constructor
@@ -41,7 +41,7 @@ public class PlateAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view1 = layoutInflater.inflate(R.layout.plate_listview, viewGroup, false);
+        View view1 = layoutInflater.inflate(R.layout.number_listview, viewGroup, false);
 
         TextView numTextView = (TextView) view1.findViewById(R.id.textView8); //เปลี่ยนเป็น textview อัตโนมัติ
         String strNum = Integer.toString(i + 1);

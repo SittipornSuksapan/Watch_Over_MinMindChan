@@ -13,6 +13,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -43,6 +44,8 @@ public class FirstActivity extends AppCompatActivity {
 
         //Loop Check User
         loopCheckUser();
+
+        backController();
 
     }   // Main Method
 
@@ -294,6 +297,16 @@ public class FirstActivity extends AppCompatActivity {
 
     public void clickAddPlate(View view) {
         startActivity(new Intent(FirstActivity.this, MainActivity.class));
+    }
+
+    private void backController() {
+        ImageView imageView = (ImageView) findViewById(R.id.imvBack);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 }   // Main Class

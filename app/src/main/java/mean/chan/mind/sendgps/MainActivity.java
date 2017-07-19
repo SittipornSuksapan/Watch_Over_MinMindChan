@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Auto update
         autoUpdate();
+
+        //ปุ่มแบล็คกลับ
+        backController();
 
     } //Main method
 
@@ -223,5 +227,15 @@ public class MainActivity extends AppCompatActivity {
         latTextView = (TextView) findViewById(R.id.textView3);
         lngTextView = (TextView) findViewById(R.id.textView5);
         plateEditText = (EditText) findViewById(R.id.editText);
+    }
+
+    private void backController() {
+        ImageView imageView = (ImageView) findViewById(R.id.imvBack);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 } //Main Class
