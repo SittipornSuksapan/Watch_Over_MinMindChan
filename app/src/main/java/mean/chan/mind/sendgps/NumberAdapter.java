@@ -12,13 +12,14 @@ public class NumberAdapter extends BaseAdapter{
 
     //Explicit
     private Context context;
-    private String[] titleStrings;
+    private String[] titleStrings, titleStrings2;
 
 
 
-    public NumberAdapter(Context context, String[] titleStrings) {
+    public NumberAdapter(Context context, String[] titleStrings, String[] titleStrings2) {
         this.context = context;
         this.titleStrings = titleStrings;
+        this.titleStrings2 = titleStrings2;
     }//Constructor
 
 
@@ -49,6 +50,9 @@ public class NumberAdapter extends BaseAdapter{
 
         TextView titleTextView = (TextView) view1.findViewById(R.id.textView9);
         titleTextView.setText(titleStrings[i]);
+
+        TextView titleTextView2 = (TextView) view1.findViewById(R.id.textView10);
+        titleTextView2.setText(titleStrings2[i]);
 
 
 

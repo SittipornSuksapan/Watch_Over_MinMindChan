@@ -105,9 +105,17 @@ public class NumberActivity extends AppCompatActivity {
 
 
 
-                NumberAdapter numberAdapter = new NumberAdapter(NumberActivity.this, telString);
+                NumberAdapter numberAdapter = new NumberAdapter(NumberActivity.this, nameString,telString);
                 listView.setAdapter(numberAdapter);
 
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+
+                    }   // onItem
+                });
 
 
 
