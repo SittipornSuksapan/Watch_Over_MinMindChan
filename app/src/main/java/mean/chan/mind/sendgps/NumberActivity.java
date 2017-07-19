@@ -1,9 +1,13 @@
 package mean.chan.mind.sendgps;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -112,6 +116,9 @@ public class NumberActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                        String uri = "tel:" + telString[i];
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(uri));
+                        startActivity(intent);
 
 
                     }   // onItem

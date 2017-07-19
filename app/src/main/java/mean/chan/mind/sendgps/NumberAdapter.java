@@ -1,6 +1,11 @@
 package mean.chan.mind.sendgps;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +42,9 @@ public class NumberAdapter extends BaseAdapter{
     public long getItemId(int position) {
         return 0;
     }
+
+
+
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
