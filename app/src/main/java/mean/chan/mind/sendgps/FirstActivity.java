@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -46,6 +49,8 @@ public class FirstActivity extends AppCompatActivity {
         loopCheckUser();
 
         backController();
+
+        //initButtomBar();
 
     }   // Main Method
 
@@ -308,5 +313,52 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
     }
+/*
+    // Buttombar
+    private void initButtomBar() {
 
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+
+                if (tabId == R.id.buttom_nav_item_place) {
+                    Toast toast = Toast.makeText(FirstActivity.this, "Place",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    //startActivity(new Intent(FirstActivity.this, FirstActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_home) {
+                    Toast toast = Toast.makeText(FirstActivity.this, "Home",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(FirstActivity.this, MyServiceActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_child) {
+                    Toast toast = Toast.makeText(FirstActivity.this, "Children",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(FirstActivity.this, AddChildActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_contact) {
+                    Toast toast = Toast.makeText(FirstActivity.this, "Contact",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(FirstActivity.this, NumberActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_history) {
+                    Toast toast = Toast.makeText(FirstActivity.this, "History",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+
+
+                }
+
+            }
+        });
+
+
+    }
+
+*/
 }   // Main Class

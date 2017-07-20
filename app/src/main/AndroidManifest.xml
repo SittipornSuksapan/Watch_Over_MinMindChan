@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".NumberActivity"
+            android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,15 +57,17 @@
         <activity
             android:name=".CreateAccountActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".MyServiceActivity"
-            android:label="@string/title_activity_my_service" />
+            android:label="Map" />
+        <activity
+            android:name=".NumberActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddNumberActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".AddChildActivity"></activity>
     </application>
 

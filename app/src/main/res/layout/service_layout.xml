@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--toolbar -->
     <android.support.v7.widget.Toolbar
-
+        android:id="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -30,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_back" />
 
+            <!--
             <LinearLayout
                 android:layout_alignParentRight="true"
                 android:orientation="horizontal"
@@ -51,20 +54,51 @@
                     android:src="@mipmap/ic_add" />
 
             </LinearLayout>
-
+            -->
 
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <!--wear child map -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="mean.chan.mind.sendgps.MyServiceActivity" />
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/buttonBar"
+        >
+        <fragment
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="mean.chan.mind.sendgps.MyServiceActivity" />
+    </LinearLayout>
 
+    <!--Buttomber -->
+    <LinearLayout
+        android:id="@+id/buttonBar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
 
-</LinearLayout>
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            app:bb_tabXmlResource="@xml/buttom_menu"
+            app:bb_inActiveTabAlpha="0.7"
+            app:bb_activeTabAlpha="1"
+            app:bb_inActiveTabColor="#757575"
+            app:bb_activeTabColor="#00B8D4" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,8 +16,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.Toast;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -27,6 +34,7 @@ public class NumberActivity extends AppCompatActivity {
     //Explicit
     private ListView listView;
     private String[] telString;
+    private String[] loginStrings; // เพิ่ม id ผู้ปกครอง
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +50,22 @@ public class NumberActivity extends AppCompatActivity {
         //button back
         backController();
 
+        // ButtomBar
+        //initButtomBar();
 
+        //รับค่า id Parent
+        getValueFromIntent();
 
     }   // Main Method
+
+    private void getValueFromIntent() {
+
+
+        loginStrings = getIntent().getStringArrayExtra("Login");
+        String tag = "17JulyV1";
+        Log.d(tag, "ID_parent ==>" + loginStrings);
+
+    }
 
     @Override
     protected void onRestart() {
@@ -64,12 +85,24 @@ public class NumberActivity extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
 
             try {
+                 //ส่ง id ผู้ปกครองไปเช็ค
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = new FormEncodingBuilder()
+                        .add("isAdd", "true")
+                        .add("id_Parent", loginStrings[0])
+                        .build();
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url("http://androidthai.in.th/dom/getContact.php").post(requestBody).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string();
 
+
+                /* // รับข้อมูล
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 Request request = builder.url("http://androidthai.in.th/dom/getContact.php").build();
                 Response response = okHttpClient.newCall(request).execute();
-                return response.body().string();
+                return response.body().string(); */
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -141,7 +174,10 @@ public class NumberActivity extends AppCompatActivity {
 
 
     public void clickAddContact(View view) {
-        startActivity(new Intent(NumberActivity.this, AddNumberActivity.class));
+        Intent intent = new Intent(NumberActivity.this, AddNumberActivity.class);
+        intent.putExtra("Login", loginStrings);
+        startActivity(intent);
+        //startActivity(new Intent(NumberActivity.this, AddNumberActivity.class));
     }
 
 
@@ -157,7 +193,53 @@ public class NumberActivity extends AppCompatActivity {
 
     } //button back
 
+    /*
+
+    private void initButtomBar() {
+
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+
+                if (tabId == R.id.buttom_nav_item_contact) {
+                    Toast toast = Toast.makeText(NumberActivity.this, "Contact",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    //startActivity(new Intent(NumberActivity.this, NumberActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_child) {
+                    Toast toast = Toast.makeText(NumberActivity.this, "Children",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(NumberActivity.this, AddChildActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_place) {
+                    Toast toast = Toast.makeText(NumberActivity.this, "Place",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(NumberActivity.this, FirstActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_home) {
+                    Toast toast = Toast.makeText(NumberActivity.this, "Home",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(NumberActivity.this, MyServiceActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_history) {
+                    Toast toast = Toast.makeText(NumberActivity.this, "History",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
 
 
+                }
+
+            }
+        });
+
+
+    }
+
+    */
 
 }// Main Class

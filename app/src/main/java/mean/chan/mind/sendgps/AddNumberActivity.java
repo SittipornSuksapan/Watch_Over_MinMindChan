@@ -4,6 +4,7 @@ package mean.chan.mind.sendgps;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import java.io.IOException;
 public class AddNumberActivity extends AppCompatActivity {
 
     private EditText nameEditText, telEditText;
+    private String[] loginStrings; // เพิ่ม id ผู้ปกครอง
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,24 @@ public class AddNumberActivity extends AppCompatActivity {
         //ปุ่มแบล็คกลับ
         backController();
 
+        //Get Value from Intent
+        getValueFromIntent();
+
+
+
     } //Main method
+
+
+    // เพิ่ม id ผู้ปกครอง
+    private void getValueFromIntent() {
+
+
+        loginStrings = getIntent().getStringArrayExtra("Login");
+        String tag = "17JulyV1";
+        Log.d(tag, "ID_parent ==>" + loginStrings);
+
+    }
+
 
     public void clickSaveData(View view) {
 
@@ -52,8 +71,7 @@ public class AddNumberActivity extends AppCompatActivity {
             Toast.makeText(this, "กรุณากรอกเบอร์โทร",
                     Toast.LENGTH_SHORT).show();
         }else {
-
-            updateValueToServer(strName,strTel);
+            updateValueToServer(strName,strTel,loginStrings);
            Toast.makeText(this, "บันทึกสำเร็จ",
                     Toast.LENGTH_SHORT).show();
             startActivity(new Intent(AddNumberActivity.this, NumberActivity.class));
@@ -61,13 +79,15 @@ public class AddNumberActivity extends AppCompatActivity {
 
     } //clickSaveData
 
-    private void updateValueToServer(String strName, String strTel) {
+    private void updateValueToServer(String strName, String strTel, String loginStrings[]) {
+
 
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
-                .add("isAdd","true")
-                .add("Name",strName)
-                .add("Tel",strTel)
+                .add("isAdd", "true")
+                .add("id_Parent", loginStrings[0])
+                .add("Name", strName)
+                .add("Tel", strTel)
                 .build();
         Request.Builder builder = new Request.Builder();
         Request request = builder.url("http://androidthai.in.th/dom/addTel.php").post(requestBody).build();

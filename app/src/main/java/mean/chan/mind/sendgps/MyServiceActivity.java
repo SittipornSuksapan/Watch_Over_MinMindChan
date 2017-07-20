@@ -1,11 +1,13 @@
 package mean.chan.mind.sendgps;
 
 import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,6 +15,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,14 +42,18 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
         backController();
 
         //Save
-        saveController();
+        //saveController();
 
         //List
-        listController();
+        //listController();
+
+        //ButtomBar
+        initButtomBar();
 
 
     } //Main Method
 
+    /*
     private void listController() {
         ImageView imageView = (ImageView) findViewById(R.id.imvListView);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +77,8 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
             }
         });
     }
+
+    */
 
     private void backController() {
         ImageView imageView = (ImageView) findViewById(R.id.imvBack);
@@ -132,5 +142,61 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
 
     } //omMapReady
 
+    // Buttombar
+    private void initButtomBar() {
 
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+
+                if (tabId == R.id.buttom_nav_item_home) {
+                    Toast toast = Toast.makeText(MyServiceActivity.this, "Home",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    //startActivity(new Intent(MyServiceActivity.this, MyServiceActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_child) {
+                    Toast toast = Toast.makeText(MyServiceActivity.this, "Children",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+
+                            Intent intent = new Intent(MyServiceActivity.this, AddChildActivity.class);
+                            intent.putExtra("Login", loginString);
+
+
+                            startActivity(intent);
+
+                        //startActivity(new Intent(MyServiceActivity.this, AddChildActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_place) {
+                    Toast toast = Toast.makeText(MyServiceActivity.this, "Place",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    Intent intent = new Intent(MyServiceActivity.this, FirstActivity.class);
+                    intent.putExtra("Login", loginString);
+                    startActivity(intent);
+                    //startActivity(new Intent(MyServiceActivity.this, FirstActivity.class));
+
+                } else if (tabId == R.id.buttom_nav_item_contact) {
+                    Toast toast = Toast.makeText(MyServiceActivity.this, "Contact",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    //startActivity(new Intent(MyServiceActivity.this, NumberActivity.class));
+                    Intent intent = new Intent(MyServiceActivity.this, NumberActivity.class);
+                    intent.putExtra("Login", loginString);
+                    startActivity(intent);
+
+                } else if (tabId == R.id.buttom_nav_item_history) {
+                    Toast toast = Toast.makeText(MyServiceActivity.this, "History",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+
+
+                }
+            }
+        });
+
+
+    }
 } //Main Class

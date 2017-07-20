@@ -9,9 +9,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-/**
- * Created by masterung on 7/12/2017 AD.
- */
+
 
 public class GetLocationWhereIdParent extends AsyncTask<String, Void, String>{
 
