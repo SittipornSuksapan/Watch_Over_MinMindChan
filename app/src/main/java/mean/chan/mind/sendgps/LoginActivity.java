@@ -16,10 +16,13 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String urlJSONString = "http://androidthai.in.th/dom/getParent.php";
+    private String urlJSONString2 = "http://androidthai.in.th/dom/getChildAll.php";
     private EditText userEditText, passwordEditText;
     private Button button;
     private TextView forgotTextView, createAccountTextView;
     private String userString, passwordString;
+    private String[]  loginStringsCheck;
+
 
 
     @Override
@@ -65,7 +68,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }   // onClick
 
-    private void checkUserAndPass() {
+
+    public void checkUserAndPass() {
 
         //Get Value from Edit Text
         userString = userEditText.getText().toString().trim();
@@ -82,6 +86,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+
     private void synUserAndPass() {
 
         try {
@@ -89,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             MyAlert myAlert = new MyAlert(LoginActivity.this);
             GetAllData getAllData = new GetAllData(LoginActivity.this);
             getAllData.execute(urlJSONString);
+
             String strJSON = getAllData.get();
             Log.d("4JuneV1", "JSON ==> " + strJSON);
             String[] columnStrings = new String[]{"id", "Name", "User", "Password", "Gender"};
@@ -96,11 +103,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             boolean b = true;
             JSONArray jsonArray = new JSONArray(strJSON);
-            for (int i=0;i<jsonArray.length();i+=1) {
+
+            for (int i = 0; i < jsonArray.length(); i += 1) {
+
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+
                 if (userString.equals(jsonObject.getString("User"))) {
                     b = false;
-                    for (int i1=0;i1<columnStrings.length;i1+=1) {
+                    for (int i1 = 0; i1 < columnStrings.length; i1 += 1) {
                         loginStrings[i1] = jsonObject.getString(columnStrings[i1]);
                         Log.d("4JuneV1", "login(" + i1 + ") ==> " + loginStrings[i1]);
                     }
@@ -110,15 +120,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (b) {
                 myAlert.myDialog("User False", "No This User in my Database");
             } else if (passwordString.equals(loginStrings[3])) {
-                Toast.makeText(LoginActivity.this, "Welcome " + loginStrings[1],
-                        Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(LoginActivity.this, MyServiceActivity.class);
-                intent.putExtra("Login", loginStrings);
-                startActivity(intent);
-                finish();
+               // loginStringsCheck = loginStrings;
+               // checkIdParent();
 
-            } else {
+
+
+                        Toast.makeText(LoginActivity.this, "Welcome " + loginStrings[1],
+                                Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(LoginActivity.this, MyServiceActivity.class);
+                        intent.putExtra("Login", loginStrings);
+                        startActivity(intent);
+                        finish();
+
+
+            }else {
                 myAlert.myDialog("Password False", "Please Try Again Password False");
             }
 
@@ -126,5 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Log.d("4JuneV1", "e check ==> " + e.toString());
         }
     }
+
+
 
 }   // Main Class

@@ -128,6 +128,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             postValueToParent.execute();
             if (Boolean.parseBoolean(postValueToParent.get())) {
                 Toast.makeText(CreateAccountActivity.this,"Upload Success",Toast.LENGTH_SHORT).show();
+
                 finish();
             } else {
                 MyAlert myAlert = new MyAlert(CreateAccountActivity.this);

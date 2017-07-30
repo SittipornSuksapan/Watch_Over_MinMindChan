@@ -13,10 +13,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +31,7 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private String[] loginString;
+    private String nameString,latString,lngString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,8 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
 
         //ButtomBar
         initButtomBar();
+
+
 
 
     } //Main Method
@@ -106,7 +115,9 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         String tag = "13JulyV1";
+        String tag2 = "MarkPlace";
 
         try {
 
@@ -123,21 +134,62 @@ public class MyServiceActivity extends FragmentActivity implements OnMapReadyCal
 
             String strLat = jsonObject.getString("Lat");
             String strLng = jsonObject.getString("Lng");
+
             Log.d(tag, "Lat ==> " + strLat);
             Log.d(tag, "Lng ==> " + strLng);
 
             LatLng latLng = new LatLng(Double.parseDouble(strLat), Double.parseDouble(strLng));
+            Log.d(tag, "LatLng ==> " + latLng);
 
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
             mMap.addMarker(markerOptions);
+
+            //ปักมุดสถานที่
+            GetPlaceWhereIdParent getPlaceWhereIdParent = new GetPlaceWhereIdParent(this);
+            getPlaceWhereIdParent.execute(loginString[0]);
+
+            String strJSON2 = getPlaceWhereIdParent.get();
+            Log.d(tag2, "JSON ==> " + strJSON2);
+
+                JSONArray jsonArray2 = new JSONArray(getPlaceWhereIdParent.get());
+
+            final String[] nameStrings = new String[jsonArray2.length()];
+            String[] strLatPlace = new String[jsonArray2.length()];
+            String[] strLngPlace = new String[jsonArray2.length()];
+
+            for (int i=0;i<jsonArray2.length();i++) {
+
+                JSONObject jsonObject2 = jsonArray2.getJSONObject(i);
+                nameStrings[i] = jsonObject2.getString("Name");
+                strLatPlace[i] = jsonObject2.getString("Lat");
+                strLngPlace[i] = jsonObject2.getString("Lng");
+
+                Log.d(tag2, "Name ==> " + i + " == " + nameStrings[i]);
+
+                LatLng latLngPlace = new LatLng(Double.parseDouble(strLatPlace[i]), Double.parseDouble(strLngPlace[i]));
+                Log.d(tag2, "LatLng ==> " + latLngPlace);
+
+                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPlace, 16));
+                mMap.addMarker(new MarkerOptions()
+                        .position(latLngPlace)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.build2)));
+
+            }   // for
+
+
+
+
+
+
 
 
         } catch (Exception e) {
             Log.d(tag, "e ==> " + e.toString());
         }
+
+
 
 
     } //omMapReady

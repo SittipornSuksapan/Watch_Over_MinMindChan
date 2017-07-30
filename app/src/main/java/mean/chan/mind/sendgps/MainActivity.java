@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Criteria criteria;
     private boolean GPSABoolean, networkABoolean;
     private int timeAnInt = 0;
+    private String[] loginStrings; // เพิ่ม id ผู้ปกครอง
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,22 @@ public class MainActivity extends AppCompatActivity {
         //ปุ่มแบล็คกลับ
         backController();
 
+        //Get Value from Intent
+        getValueFromIntent();
+
+
+
     } //Main method
+
+
+    // เพิ่ม id ผู้ปกครอง
+    private void getValueFromIntent() {
+        loginStrings = getIntent().getStringArrayExtra("Login");
+        String tag = "17JulyV1";
+        Log.d(tag, "ID_parent ==>" + loginStrings);
+
+    }
+
 
     public void clickSaveData(View view) {
 
@@ -69,16 +85,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             String strLat = latTextView.getText().toString();
             String strLng = lngTextView.getText().toString();
-            updateValueToServer(strName,strLat,strLng);
+            updateValueToServer(strName,strLat,strLng,loginStrings);
         }
 
     } //clickSaveData
 
-    private void updateValueToServer(String strName, String strLat, String strLng) {
+    private void updateValueToServer(String strName, String strLat, String strLng, String loginStrings[]) {
 
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
                 .add("isAdd","true")
+                .add("id_Parent", loginStrings[0])
                 .add("Name",strName)
                 .add("Lat",strLat)
                 .add("Lng",strLng)

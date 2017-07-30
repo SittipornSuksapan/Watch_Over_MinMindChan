@@ -20,8 +20,10 @@ import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -32,6 +34,7 @@ public class FirstActivity extends AppCompatActivity {
     //Explicit
     private ListView listView;
     private String[] latStrings, lngStrings;
+    private String[] loginStrings;
 
 
 
@@ -41,6 +44,8 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first);
 
         listView = (ListView) findViewById(R.id.listView);
+
+        getValueFromIntent();
 
         //Synchronize JSON
         synJSON();
@@ -53,6 +58,10 @@ public class FirstActivity extends AppCompatActivity {
         //initButtomBar();
 
     }   // Main Method
+
+    private void getValueFromIntent() {
+        loginStrings = getIntent().getStringArrayExtra("Login");
+    }
 
 
     //นี่คือ เมทอด ที่หาระยะ ระหว่างจุด
@@ -233,10 +242,22 @@ public class FirstActivity extends AppCompatActivity {
             try {
 
                 OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = new FormEncodingBuilder()
+                        .add("isAdd", "true")
+                        .add("id_Parent", loginStrings[0])
+                        .build();
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url("http://androidthai.in.th/dom/getPlate.php").post(requestBody).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string();
+
+                /*
+                OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 Request request = builder.url("http://androidthai.in.th/dom/getPlate.php").build();
                 Response response = okHttpClient.newCall(request).execute();
                 return response.body().string();
+                */
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -280,8 +301,11 @@ public class FirstActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                        //เลือกสถานที่ไปแสดงในหน้า PlateMapsActivity
                         Intent intent = new Intent(FirstActivity.this, PlateMapsActivity.class);
 
+                        //Intent intent = new Intent(FirstActivity.this, MyServiceActivity.class);
+                        intent.putExtra("Login", loginStrings);
                         intent.putExtra("Name", nameStrings[i]);
                         intent.putExtra("Lat", latStrings[i]);
                         intent.putExtra("Lng", lngStrings[i]);
@@ -301,64 +325,24 @@ public class FirstActivity extends AppCompatActivity {
     }   // MySynJSON class
 
     public void clickAddPlate(View view) {
-        startActivity(new Intent(FirstActivity.this, MainActivity.class));
+
+        String tag = "1234";
+        Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+        intent.putExtra("Login", loginStrings);
+        startActivity(intent);
+        Log.d("21April", "Name length ==> " + loginStrings[0]);
     }
 
     private void backController() {
         ImageView imageView = (ImageView) findViewById(R.id.imvBack);
         imageView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
     }
-/*
-    // Buttombar
-    private void initButtomBar() {
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-
-                if (tabId == R.id.buttom_nav_item_place) {
-                    Toast toast = Toast.makeText(FirstActivity.this, "Place",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                    //startActivity(new Intent(FirstActivity.this, FirstActivity.class));
-
-                } else if (tabId == R.id.buttom_nav_item_home) {
-                    Toast toast = Toast.makeText(FirstActivity.this, "Home",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                    startActivity(new Intent(FirstActivity.this, MyServiceActivity.class));
-
-                } else if (tabId == R.id.buttom_nav_item_child) {
-                    Toast toast = Toast.makeText(FirstActivity.this, "Children",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                    startActivity(new Intent(FirstActivity.this, AddChildActivity.class));
-
-                } else if (tabId == R.id.buttom_nav_item_contact) {
-                    Toast toast = Toast.makeText(FirstActivity.this, "Contact",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                    startActivity(new Intent(FirstActivity.this, NumberActivity.class));
-
-                } else if (tabId == R.id.buttom_nav_item_history) {
-                    Toast toast = Toast.makeText(FirstActivity.this, "History",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-
-
-                }
-
-            }
-        });
-
-
-    }
-
-*/
 }   // Main Class
