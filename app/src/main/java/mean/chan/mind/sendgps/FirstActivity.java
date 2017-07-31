@@ -60,8 +60,10 @@ public class FirstActivity extends AppCompatActivity {
     }   // Main Method
 
     private void getValueFromIntent() {
+
         loginStrings = getIntent().getStringArrayExtra("Login");
     }
+
 
 
     //นี่คือ เมทอด ที่หาระยะ ระหว่างจุด
@@ -327,10 +329,11 @@ public class FirstActivity extends AppCompatActivity {
     public void clickAddPlate(View view) {
 
         String tag = "1234";
-        Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+        Intent intent = new Intent(FirstActivity.this, SearchPlaceActivity.class);
         intent.putExtra("Login", loginStrings);
         startActivity(intent);
         Log.d("21April", "Name length ==> " + loginStrings[0]);
+        finish();
     }
 
     private void backController() {
@@ -339,7 +342,8 @@ public class FirstActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(FirstActivity.this, MyServiceActivity.class);
+                intent.putExtra("Login", loginStrings);
                 finish();
             }
         });

@@ -1,6 +1,7 @@
 package mean.chan.mind.sendgps;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean GPSABoolean, networkABoolean;
     private int timeAnInt = 0;
     private String[] loginStrings; // เพิ่ม id ผู้ปกครอง
+    private String latString,lngString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +53,19 @@ public class MainActivity extends AppCompatActivity {
         bindWidget();
 
         //setup Location
-        setupLocation();
+        //setupLocation();
 
         //Auto update
-        autoUpdate();
+        //autoUpdate();
 
         //ปุ่มแบล็คกลับ
         backController();
 
         //Get Value from Intent
         getValueFromIntent();
+
+        latString = getIntent().getStringExtra("Lat");
+        lngString = getIntent().getStringExtra("Lng");
 
 
 
@@ -86,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
             String strLat = latTextView.getText().toString();
             String strLng = lngTextView.getText().toString();
             updateValueToServer(strName,strLat,strLng,loginStrings);
+            Intent intent = new Intent(MainActivity.this, FirstActivity.class);
+            intent.putExtra("Login", loginStrings);
+            startActivity(intent);
         }
 
     } //clickSaveData
@@ -117,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
 
     }//Update Value
 
+
+    /*
     private void autoUpdate() {
 
         timeAnInt +=1;
@@ -239,6 +250,20 @@ public class MainActivity extends AppCompatActivity {
         criteria.setAltitudeRequired(false);
         criteria.setBearingRequired(false);
     }
+
+   */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+        latTextView.setText(latString);
+        lngTextView.setText(lngString);
+
+    } // onResume
+
 
     private void bindWidget() {
         latTextView = (TextView) findViewById(R.id.textView3);
