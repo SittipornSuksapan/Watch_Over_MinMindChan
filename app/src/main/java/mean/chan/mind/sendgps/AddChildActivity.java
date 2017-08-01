@@ -45,7 +45,7 @@ public class AddChildActivity extends AppCompatActivity {
         cameraController();
 
         //Save controller
-        saveController();
+        //saveController();
 
 
     }  //Main Method
@@ -73,18 +73,14 @@ public class AddChildActivity extends AppCompatActivity {
     }
 
     private void initialView() {
-        pictureImageView = (ImageView) findViewById(R.id.imPicture);
+        //pictureImageView = (ImageView) findViewById(R.id.imPicture);
         codeEditText = (EditText) findViewById(R.id.edtCode);
         nameEditText = (EditText) findViewById(R.id.edtName);
         radioGroup = (RadioGroup) findViewById(R.id.ragGender);
 
     }
 
-    private void saveController() {
-        ImageView imageView = (ImageView) findViewById(R.id.imvSave);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    public void saveController(View view) {
 
                 //get value from edit text
                 codeString = codeEditText.getText().toString().trim();
@@ -102,8 +98,8 @@ public class AddChildActivity extends AppCompatActivity {
 
                 }
 
-            }
-        });
+
+
     }
 
     private void uploadValueToServer() {
